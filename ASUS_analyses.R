@@ -10,7 +10,7 @@ library(vegan)
 #compute NMDS
 asus3nmds<-metaMDS(asus3)
 
-#plot NMDS
+#plot NMDS in base R
 #ordiplot(asus3nmds,type="n")
 #ordiellipse(asus3nmds,groups=sites$Sea,draw="polygon",col="grey90",label=F)
 #orditorp(asus3nmds,display="species",col="black",air=0.01)
@@ -34,7 +34,7 @@ head(species.scores)
 
 library(ggplot2)
 
-#make hulls
+#make hulls, one for each sea
 
 grp.a <- data.scores[datascores$Sea == "Adriatic", ][chull(datascores[datascores$Sea == 
                                                                         "Adriatic", c("NMDS1", "NMDS2")]), ]
@@ -51,9 +51,9 @@ grp.f <- data.scores[datascores$Sea == "Gulf_of_Lions", ][chull(datascores[datas
 grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea == 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
-hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.e, grp.f, grp.g) 
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Black","Channel","Channel","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red")
-hull.data<-cbind(hull.data,hull.sea)
+hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.e, grp.f, grp.g) #turn the hulls into a single dataframe
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Black","Channel","Channel","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
 
@@ -70,12 +70,42 @@ theme_bw()+
         panel.background = element_blank(), 
         panel.grid.major = element_blank(),  #remove major-grid labels
         panel.grid.minor = element_blank(),  #remove minor-grid labels
+        plot.background = element_blank())+ 
+  geom_polygon(data=hull.data,aes(x=NMDS1,y=NMDS2,group=hull.sea),alpha=0.20) #add polygon based on the hulls calculated
+
+
+#diversity statistics
+
+asusdiv<-cbind(diversity(asus3,index="simpson"),sites) #calculate simpsons index, bind to site information
+
+colnames(asusdiv)<-c("simpsons","site","Sea") #rename columns
+
+
+summary(aov(asusdiv$simpsons~asusdiv2$Sea)) #anova among regions
+TukeyHSD(aov(asusdiv$simpsons~asusdiv2$Sea)) #post-hoc tests among regions
+
+#Plot of diversity stats
+
+ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+ 
+  geom_jitter(position=position_jitter(0.2), cex=6)+
+  theme_bw()+
+  theme(panel.background = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  geom_polygon(data=hull.data,aes(x=NMDS1,y=NMDS2,group=hull.sea),alpha=0.20)
-
-
-ggplot(asusdiv, aes(x=Sea, y=SIMPSONS,color=Sea))+ geom_jitter(position=position_jitter(0.2), cex=6)+theme_bw()+theme(panel.background = element_blank(), panel.grid.major = element_blank(),panel.grid.minor = element_blank(),plot.background = element_blank())+xlab("\nSea")+ylab("Simpsons\n")+scale_colour_manual(values=c("green","darkorange2","gold","black","blue","purple","red"))+theme(axis.text.x= element_text(size=16))+theme(axis.text.y= element_text(size=16))
-
-TukeyHSD(aov(asusdiv$SIMPSONS~asusdiv$Sea))
-summary(aov(asusdiv$SIMPSONS~asusdiv$Sea))
+  xlab("\nSea")+ylab("Simpsons\n")+
+  scale_colour_manual(values=c("green","darkorange2","gold","black","blue","purple","red"))+
+  theme(axis.text.x= element_text(size=16))+
+  theme(axis.text.y= element_text(size=16))+
+  theme(axis.title.x=element_text(size=16))+
+  theme(axis.title.y=element_text(size=16))+
+  theme(legend.position="none")+
+  ylim(0,1)+
+  annotate("text", x = 1, y = 0.7, label = "ab", size = 6)+
+  annotate("text", x = 2, y = 0.62, label = "ab", size = 6)+
+  annotate("text", x = 3, y = 0.88, label = "ab", size = 6)+
+  annotate("text", x = 4, y = 0.43, label = "a", size = 6)+
+  annotate("text", x = 5, y = 0.8, label = "ab", size = 6)+
+  annotate("text", x = 6, y = 0.9, label = "b", size = 6)+
+  annotate("text", x = 7, y = 0.83, label = "ab", size = 6)
 
