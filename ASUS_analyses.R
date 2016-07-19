@@ -46,13 +46,13 @@ grp.d <- data.scores[datascores$Sea == "Black", ][chull(datascores[datascores$Se
                                                                      "Black", c("NMDS1", "NMDS2")]), ]
 grp.e <- data.scores[datascores$Sea == "Channel", ][chull(datascores[datascores$Sea == 
                                                                        "Channel", c("NMDS1", "NMDS2")]), ]
-grp.f <- data.scores[datascores$Sea == "Gulf_of_Lions", ][chull(datascores[datascores$Sea == 
-                                                                             "Gulf_of_Lions", c("NMDS1", "NMDS2")]), ]
+grp.f <- data.scores[datascores$Sea == "Gulf_of_Lion", ][chull(datascores[datascores$Sea == 
+                                                                             "Gulf_of_Lion", c("NMDS1", "NMDS2")]), ]
 grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea == 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.e, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Black","Channel","Channel","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Black","Channel","Channel","Gulf_of_Lion","Gulf_of_Lion","Gulf_of_Lion","Gulf_of_Lion","Gulf_of_Lion","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
