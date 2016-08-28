@@ -131,11 +131,11 @@ ggplot(rich, aes(x=Sea, y=margalef,color=Sea))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,2.25)+
-  annotate("text", x = 1, y = 1.85, label = "bc", size = 6)+
-  annotate("text", x = 2, y = 2.15, label = "d", size = 6)+
-  annotate("text", x = 3, y = 1.72, label = "cd", size = 6)+
+  annotate("text", x = 1, y = 1.85, label = "cd", size = 6)+
+  annotate("text", x = 2, y = 1, label = "a", size = 6)+
+  annotate("text", x = 3, y = 1.9, label = "bc", size = 6)+
   annotate("text", x = 4, y = 1.2, label = "ab", size = 6)+
-  annotate("text", x = 5, y = 2.08, label = "cd", size = 6)+
-  annotate("text", x = 6, y = 1, label = "a", size = 6)+
-  annotate("text", x = 7, y = 2.24, label = "d", size = 6)
+  annotate("text", x = 5, y = 2.24, label = "d", size = 6)+
+  annotate("text", x = 6, y = 2.2, label = "d", size = 6)+
+  annotate("text", x = 7, y = 2.1, label = "cd", size = 6)
 

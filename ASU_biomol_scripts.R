@@ -4,6 +4,7 @@
 
 asus3<-read.table("C:/Users/acahill/Desktop/asu_biomol.txt",header=TRUE)
 sites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
+rich<-read.table("C:/Users/acahill/Desktop/biomolrich.txt",header=TRUE)
 
 #load vegan
 library(vegan)
@@ -107,5 +108,32 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
   annotate("text", x = 4, y = 0.57, label = "a", size = 6)+
   annotate("text", x = 5, y = 0.99, label = "c", size = 6)+
   annotate("text", x = 6, y = 0.87, label = "bc", size = 6)
+
+#margalef richness
+
+summary(aov(rich$margalef~rich$region))
+TukeyHSD(aov(rich$margalef~rich$region))
+
+ggplot(rich, aes(x=region, y=margalef,color=region))+ 
+  geom_jitter(position=position_jitter(0.2), cex=6)+
+  theme_bw()+
+  theme(panel.background = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.background = element_blank())+
+  xlab("\nSea")+ylab("Margalef\n")+
+  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
+  theme(axis.text.x= element_text(size=16))+
+  theme(axis.text.y= element_text(size=16))+
+  theme(axis.title.x=element_text(size=16))+
+  theme(axis.title.y=element_text(size=16))+
+  theme(legend.position="none")+
+  ylim(0,20)+
+  annotate("text", x = 1, y = 1.85, label = "ab", size = 6)+
+  annotate("text", x = 2, y = 2.15, label = "a", size = 6)+
+  annotate("text", x = 3, y = 1.72, label = "bc", size = 6)+
+  annotate("text", x = 4, y = 1.2, label = "a", size = 6)+
+  annotate("text", x = 5, y = 2.08, label = "c", size = 6)+
+  annotate("text", x = 6, y = 1, label = "ab", size = 6)
 
 

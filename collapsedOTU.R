@@ -126,3 +126,34 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
   annotate("text", x = 4, y = 0.23, label = "a", size = 6)+
   annotate("text", x = 5, y = 0.92, label = "b", size = 6)+
   annotate("text", x = 6, y = 0.75, label = "b", size = 6)
+
+#add margalef
+
+collrich<-read.table("C:/Users/acahill/Desktop/collapsedrich.txt",header=TRUE)
+
+summary(aov(collrich$margalef~collrich$region)) #anova among regions
+TukeyHSD(aov(collrich$margalef~collrich$region)) #post-hoc tests among regions
+
+#Plot of diversity stats
+
+ggplot(collrich, aes(x=region, y=margalef,color=region))+ 
+  geom_jitter(position=position_jitter(0.2), cex=6)+
+  theme_bw()+
+  theme(panel.background = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.background = element_blank())+
+  xlab("\nSea")+ylab("Simpsons\n")+
+  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
+  theme(axis.text.x= element_text(size=16))+
+  theme(axis.text.y= element_text(size=16))+
+  theme(axis.title.x=element_text(size=16))+
+  theme(axis.title.y=element_text(size=16))+
+  theme(legend.position="none")+
+  ylim(0,2.4)+
+  annotate("text", x = 1, y = 1.75, label = "a", size = 6)+
+  annotate("text", x = 2, y = 2.3, label = "ab", size = 6)+
+  annotate("text", x = 3, y = 2.4, label = "ab", size = 6)+
+  annotate("text", x = 4, y = 2, label = "ab", size = 6)+
+  annotate("text", x = 5, y = 2.3, label = "b", size = 6)+
+  annotate("text", x = 6, y = 2, label = "ab", size = 6)

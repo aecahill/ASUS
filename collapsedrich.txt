@@ -1,0 +1,42 @@
+margalef	region
+1.441121462	Biscay
+2.217109941	Biscay
+1.441121462	Biscay
+1.108554971	Biscay
+1.551976959	Biscay
+1.773687953	Biscay
+2.106254444	Gulf_of_Lions
+1.88454345	Gulf_of_Lions
+1.88454345	Gulf_of_Lions
+1.551976959	Gulf_of_Lions
+1.551976959	Gulf_of_Lions
+2.106254444	Gulf_of_Lions
+1.662832456	Gulf_of_Lions
+2.106254444	Gulf_of_Lions
+1.773687953	Gulf_of_Lions
+1.441121462	Adriatic
+1.330265965	Adriatic
+1.108554971	Adriatic
+1.551976959	Adriatic
+1.330265965	Adriatic
+1.441121462	Adriatic
+1.441121462	Adriatic
+1.330265965	Black
+1.773687953	Black
+1.441121462	Black
+0.997699474	Black
+1.441121462	Red
+1.551976959	Red
+1.773687953	Red
+1.219410468	Red
+1.662832456	Baltic
+2.106254444	Baltic
+1.656991417	Baltic
+	
+	
+	
+	
+	
+	
+	
+	
