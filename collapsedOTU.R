@@ -125,7 +125,8 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
   annotate("text", x = 3, y = 0.89, label = "b", size = 6)+
   annotate("text", x = 4, y = 0.23, label = "a", size = 6)+
   annotate("text", x = 5, y = 0.92, label = "b", size = 6)+
-  annotate("text", x = 6, y = 0.75, label = "b", size = 6)
+  annotate("text", x = 6, y = 0.75, label = "b", size = 6)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 #add margalef
 
@@ -143,7 +144,7 @@ ggplot(collrich, aes(x=region, y=margalef,color=region))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Simpsons\n")+
+  xlab("\nSea")+ylab("Margalef\n")+
   scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
@@ -156,4 +157,5 @@ ggplot(collrich, aes(x=region, y=margalef,color=region))+
   annotate("text", x = 3, y = 2.4, label = "ab", size = 6)+
   annotate("text", x = 4, y = 2, label = "ab", size = 6)+
   annotate("text", x = 5, y = 2.3, label = "b", size = 6)+
-  annotate("text", x = 6, y = 2, label = "ab", size = 6)
+  annotate("text", x = 6, y = 2, label = "ab", size = 6)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))

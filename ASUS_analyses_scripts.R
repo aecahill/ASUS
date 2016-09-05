@@ -109,7 +109,8 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
   annotate("text", x = 4, y = 0.43, label = "a", size = 6)+
   annotate("text", x = 5, y = 0.81, label = "ab", size = 6)+
   annotate("text", x = 6, y = 0.92, label = "b", size = 6)+
-  annotate("text", x = 7, y = 0.84, label = "ab", size = 6)
+  annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 #margalef, based on margalef file
 
@@ -137,5 +138,6 @@ ggplot(rich, aes(x=Sea, y=margalef,color=Sea))+
   annotate("text", x = 4, y = 1.2, label = "ab", size = 6)+
   annotate("text", x = 5, y = 2.24, label = "d", size = 6)+
   annotate("text", x = 6, y = 2.2, label = "d", size = 6)+
-  annotate("text", x = 7, y = 2.1, label = "cd", size = 6)
+  annotate("text", x = 7, y = 2.1, label = "cd", size = 6)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 

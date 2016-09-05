@@ -107,7 +107,8 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
   annotate("text", x = 3, y = 0.95, label = "c", size = 6)+
   annotate("text", x = 4, y = 0.57, label = "a", size = 6)+
   annotate("text", x = 5, y = 0.99, label = "c", size = 6)+
-  annotate("text", x = 6, y = 0.87, label = "bc", size = 6)
+  annotate("text", x = 6, y = 0.87, label = "bc", size = 6)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 #margalef richness
 
@@ -134,6 +135,7 @@ ggplot(rich, aes(x=region, y=margalef,color=region))+
   annotate("text", x = 3, y = 1.72, label = "bc", size = 6)+
   annotate("text", x = 4, y = 1.2, label = "a", size = 6)+
   annotate("text", x = 5, y = 2.08, label = "c", size = 6)+
-  annotate("text", x = 6, y = 1, label = "ab", size = 6)
+  annotate("text", x = 6, y = 1, label = "ab", size = 6)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
