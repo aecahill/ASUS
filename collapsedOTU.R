@@ -1,10 +1,10 @@
-asuotu<-read.table("C:/Users/acahill/Desktop/asuotu.txt",header=TRUE)
+asuotu<-read.table("C:/Users/acahill/Desktop/asuotu2.txt",header=TRUE)
 
 samples<-c(1:33)
 otu = NULL
 
 for (i in samples) {
-  collapsed<-tapply(asuotu[,i],asuotu$class,sum)
+  collapsed<-tapply(asuotu[,i],asuotu$Class,sum)
   otu<-cbind(otu,collapsed)
   
 }
@@ -72,7 +72,7 @@ grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
@@ -130,7 +130,7 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
 
 #add margalef
 
-collrich<-read.table("C:/Users/acahill/Desktop/collapsedrich.txt",header=TRUE)
+collrich<-read.table("C:/Users/acahill/Desktop/collapsedrich2.txt",header=TRUE)
 
 summary(aov(collrich$margalef~collrich$region)) #anova among regions
 TukeyHSD(aov(collrich$margalef~collrich$region)) #post-hoc tests among regions
@@ -151,11 +151,11 @@ ggplot(collrich, aes(x=region, y=margalef,color=region))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
-  ylim(0,2.4)+
-  annotate("text", x = 1, y = 1.75, label = "a", size = 6)+
-  annotate("text", x = 2, y = 2.3, label = "ab", size = 6)+
-  annotate("text", x = 3, y = 2.4, label = "ab", size = 6)+
-  annotate("text", x = 4, y = 2, label = "ab", size = 6)+
-  annotate("text", x = 5, y = 2.3, label = "b", size = 6)+
+  ylim(0,2.1)+
+  annotate("text", x = 1, y = 2, label = "a", size = 6)+
+  annotate("text", x = 2, y = 2, label = "ab", size = 6)+
+  annotate("text", x = 3, y = 2, label = "ab", size = 6)+
+  annotate("text", x = 4, y = 2, label = "a", size = 6)+
+  annotate("text", x = 5, y = 2, label = "b", size = 6)+
   annotate("text", x = 6, y = 2, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
