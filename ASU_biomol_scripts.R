@@ -2,9 +2,9 @@
 #need file sites with a column of site names and region names
 #This is for biomol data, raw OTUs
 
-asus3<-read.table("C:/Users/acahill/Desktop/asu_biomol.txt",header=TRUE)
+asus3<-read.table("C:/Users/acahill/Desktop/asus_oct.txt",header=TRUE)
 sites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
-rich<-read.table("C:/Users/acahill/Desktop/biomolrich.txt",header=TRUE)
+rich<-read.table("C:/Users/acahill/Desktop/otu_rich_oct.txt",header=TRUE)
 
 #load vegan
 library(vegan)
@@ -53,7 +53,7 @@ grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Black","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Black","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
@@ -102,7 +102,7 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,1)+
-  annotate("text", x = 1, y = 0.92, label = "bc", size = 6)+
+  annotate("text", x = 1, y = 0.92, label = "c", size = 6)+
   annotate("text", x = 2, y = 0.9, label = "ab", size = 6)+
   annotate("text", x = 3, y = 0.95, label = "c", size = 6)+
   annotate("text", x = 4, y = 0.57, label = "a", size = 6)+
