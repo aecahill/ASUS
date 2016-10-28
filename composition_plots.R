@@ -32,18 +32,18 @@ percs<-100*(tots/grandtot)
 
 filtered = NULL
 taxanames<-colnames(region)
-namesvec = NULL
+morphonamesvec = NULL
 
 taxa<-c(1:26)
 
 for (i in taxa) {
   if (percs[i]>= 0.1) {
     filtered<-cbind(filtered,region[,i])
-    namesvec<-c(namesvec,taxanames[i])
+    morphonamesvec<-c(morphonamesvec,taxanames[i])
   }
 }
 
-colnames(filtered)<-namesvec
+colnames(filtered)<-morphonamesvec
 regnames<-c("Adriatic","Baltic","Biscay","Black","Channel","Gulf_of_Lions","Red")
 filtered<-as.data.frame(cbind(filtered,regnames))
 
@@ -55,9 +55,9 @@ colnames(morphofiltered)<-c("region","taxon","V3","abundance")
 
 #Graph
 
-colors<-brewer.pal(9,"Set1")
-pal<-colorRampPalette(colors)
-good_palette<-pal(20)
+#colors<-brewer.pal(9,"Set1")
+#pal<-colorRampPalette(colors)
+good_palette<-c("#E41A1C","#526E9F","#3C8A9B","#FAF632","#747B78","#FF990A","#BB614F","#D77083","#F37FB8","#BF6357","#DA88B3","#E17597","#B990A6","#53A651")
 
 compositionplot <-ggplot(morphofiltered, aes(x=region, y=abundance, fill=taxon)) +
   geom_bar(stat="identity") + 
