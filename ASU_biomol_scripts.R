@@ -77,9 +77,9 @@ ggplot() +
 
 #diversity statistics
 
-asusdiv<-cbind(diversity(asus3,index="simpson"),sites) #calculate simpsons index, bind to site information
+asusdiv<-cbind(diversity(asus3,index="simpson"),rich) #calculate simpsons index, bind to site information
 
-colnames(asusdiv)<-c("simpsons","site","Sea") #rename columns
+colnames(asusdiv)<-c("simpsons","margalef","Sea") #rename columns
 
 
 summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
@@ -88,6 +88,7 @@ TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
 #Plot of diversity stats
 
 ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+ 
+  geom_boxplot()+
   geom_jitter(position=position_jitter(0.2), cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
@@ -95,18 +96,19 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSea")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
+  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
+  scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,1)+
-  annotate("text", x = 1, y = 0.92, label = "c", size = 6)+
-  annotate("text", x = 2, y = 0.9, label = "ab", size = 6)+
-  annotate("text", x = 3, y = 0.95, label = "c", size = 6)+
-  annotate("text", x = 4, y = 0.57, label = "a", size = 6)+
-  annotate("text", x = 5, y = 0.99, label = "c", size = 6)+
+  annotate("text", x = 1, y = 0.9, label = "ab", size = 6)+
+  annotate("text", x = 2, y = 0.95, label = "c", size = 6)+
+  annotate("text", x = 3, y = 0.99, label = "c", size = 6)+
+  annotate("text", x = 4, y = 0.92, label = "c", size = 6)+
+  annotate("text", x = 5, y = 0.57, label = "a", size = 6)+
   annotate("text", x = 6, y = 0.87, label = "bc", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -116,6 +118,7 @@ summary(aov(rich$margalef~rich$region))
 TukeyHSD(aov(rich$margalef~rich$region))
 
 ggplot(rich, aes(x=region, y=margalef,color=region))+ 
+  geom_boxplot()+
   geom_jitter(position=position_jitter(0.2), cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
@@ -123,19 +126,20 @@ ggplot(rich, aes(x=region, y=margalef,color=region))+
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSea")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
+  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
+  scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,20)+
-  annotate("text", x = 1, y = 1.85, label = "ab", size = 6)+
-  annotate("text", x = 2, y = 2.15, label = "a", size = 6)+
-  annotate("text", x = 3, y = 1.72, label = "bc", size = 6)+
-  annotate("text", x = 4, y = 1.2, label = "a", size = 6)+
-  annotate("text", x = 5, y = 2.08, label = "c", size = 6)+
-  annotate("text", x = 6, y = 1, label = "ab", size = 6)+
+  annotate("text", x = 1, y = 2, label = "a", size = 6)+
+  annotate("text", x = 2, y = 2, label = "bc", size = 6)+
+  annotate("text", x = 3, y = 2, label = "c", size = 6)+
+  annotate("text", x = 4, y = 2, label = "ab", size = 6)+
+  annotate("text", x = 5, y = 2, label = "a", size = 6)+
+  annotate("text", x = 6, y = 2, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 

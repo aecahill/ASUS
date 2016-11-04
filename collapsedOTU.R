@@ -1,4 +1,6 @@
 asuotu<-read.table("C:/Users/acahill/Desktop/asuoct.txt",header=TRUE)
+rich<-read.table("C:/Users/acahill/Desktop/otu_rich_oct.txt",header=TRUE)
+
 
 samples<-c(1:33)
 otu = NULL
@@ -95,9 +97,9 @@ ggplot() +
 
 #diversity statistics
 
-asusdiv<-cbind(diversity(otu2,index="simpson"),sites) #calculate simpsons index, bind to site information
+asusdiv<-cbind(diversity(otu2,index="simpson"),rich) #calculate simpsons index, bind to site information
 
-colnames(asusdiv)<-c("simpsons","site","Sea") #rename columns
+colnames(asusdiv)<-c("simpsons","margalef","Sea") #rename columns
 
 
 summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
@@ -106,6 +108,7 @@ TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
 #Plot of diversity stats
 
 ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+ 
+  geom_boxplot()+
   geom_jitter(position=position_jitter(0.2), cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
@@ -113,18 +116,19 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSea")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
+  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
+  scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,1)+
-  annotate("text", x = 1, y = 0.74, label = "b", size = 6)+
+  annotate("text", x = 1, y = 0.89, label = "b", size = 6)+
   annotate("text", x = 2, y = 0.89, label = "b", size = 6)+
-  annotate("text", x = 3, y = 0.89, label = "b", size = 6)+
-  annotate("text", x = 4, y = 0.23, label = "a", size = 6)+
-  annotate("text", x = 5, y = 0.92, label = "b", size = 6)+
+  annotate("text", x = 3, y = 0.92, label = "b", size = 6)+
+  annotate("text", x = 4, y = 0.74, label = "b", size = 6)+
+  annotate("text", x = 5, y = 0.23, label = "a", size = 6)+
   annotate("text", x = 6, y = 0.75, label = "b", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -135,9 +139,10 @@ collrich<-read.table("C:/Users/acahill/Desktop/otucollapsedoct.txt",header=TRUE)
 summary(aov(collrich$margalef~collrich$region)) #anova among regions
 TukeyHSD(aov(collrich$margalef~collrich$region)) #post-hoc tests among regions
 
-#Plot of diversity stats
+#Plot of richness stats
 
 ggplot(collrich, aes(x=region, y=margalef,color=region))+ 
+  geom_boxplot()+
   geom_jitter(position=position_jitter(0.2), cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
@@ -145,7 +150,8 @@ ggplot(collrich, aes(x=region, y=margalef,color=region))+
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSea")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red"))+
+  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
+  scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
@@ -154,8 +160,8 @@ ggplot(collrich, aes(x=region, y=margalef,color=region))+
   ylim(0,2.1)+
   annotate("text", x = 1, y = 2.1, label = "a", size = 6)+
   annotate("text", x = 2, y = 2.1, label = "ab", size = 6)+
-  annotate("text", x = 3, y = 2.1, label = "ab", size = 6)+
-  annotate("text", x = 4, y = 2.1, label = "ab", size = 6)+
-  annotate("text", x = 5, y = 2.1, label = "b", size = 6)+
+  annotate("text", x = 3, y = 2.1, label = "b", size = 6)+
+  annotate("text", x = 4, y = 2.1, label = "a", size = 6)+
+  annotate("text", x = 5, y = 2.1, label = "ab", size = 6)+
   annotate("text", x = 6, y = 2.1, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))

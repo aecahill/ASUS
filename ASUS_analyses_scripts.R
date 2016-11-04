@@ -78,9 +78,9 @@ theme_bw()+
 
 #diversity statistics
 
-asusdiv<-cbind(diversity(asus3,index="simpson"),sites) #calculate simpsons index, bind to site information
+asusdiv<-cbind(diversity(asus3,index="simpson"),rich) #calculate simpsons index, bind to site information
 
-colnames(asusdiv)<-c("simpsons","site","Sea") #rename columns
+colnames(asusdiv)<-c("simpsons","Sea","number_species","margalef") #rename columns
 
 
 summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
@@ -89,6 +89,7 @@ TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
 #Plot of diversity stats
 
 ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+ 
+  geom_boxplot() +
   geom_jitter(position=position_jitter(0.2), cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
@@ -96,19 +97,20 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSea")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("green","darkorange2","gold","black","blue","purple","red"))+
+  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
+  scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,1)+
-  annotate("text", x = 1, y = 0.72, label = "ab", size = 6)+
-  annotate("text", x = 2, y = 0.63, label = "ab", size = 6)+
+  annotate("text", x = 1, y = 0.63, label = "ab", size = 6)+
+  annotate("text", x = 2, y = 0.81, label = "ab", size = 6)+
   annotate("text", x = 3, y = 0.89, label = "ab", size = 6)+
-  annotate("text", x = 4, y = 0.43, label = "a", size = 6)+
-  annotate("text", x = 5, y = 0.81, label = "ab", size = 6)+
-  annotate("text", x = 6, y = 0.92, label = "b", size = 6)+
+  annotate("text", x = 4, y = 0.92, label = "b", size = 6)+
+  annotate("text", x = 5, y = 0.72, label = "ab", size = 6)+
+  annotate("text", x = 6, y = 0.43, label = "a", size = 6)+
   annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -118,6 +120,7 @@ summary(aov(rich$margalef~rich$Sea))
 TukeyHSD(aov(rich$margalef~rich$Sea))
 
 ggplot(rich, aes(x=Sea, y=margalef,color=Sea))+ 
+  geom_boxplot() +
   geom_jitter(position=position_jitter(0.2), cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
@@ -125,19 +128,20 @@ ggplot(rich, aes(x=Sea, y=margalef,color=Sea))+
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSea")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("green","darkorange2","gold","black","blue","purple","red"))+
+  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
+  scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
   theme(legend.position="none")+
   ylim(0,2.25)+
-  annotate("text", x = 1, y = 1.85, label = "cd", size = 6)+
-  annotate("text", x = 2, y = 1, label = "a", size = 6)+
+  annotate("text", x = 1, y = 1, label = "a", size = 6)+
+  annotate("text", x = 2, y = 2.24, label = "d", size = 6)+
   annotate("text", x = 3, y = 1.9, label = "bc", size = 6)+
-  annotate("text", x = 4, y = 1.2, label = "ab", size = 6)+
-  annotate("text", x = 5, y = 2.24, label = "d", size = 6)+
-  annotate("text", x = 6, y = 2.2, label = "d", size = 6)+
+  annotate("text", x = 4, y = 2.2, label = "d", size = 6)+
+  annotate("text", x = 5, y = 1.85, label = "cd", size = 6)+
+  annotate("text", x = 6, y = 1.2, label = "ab", size = 6)+
   annotate("text", x = 7, y = 2.1, label = "cd", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
