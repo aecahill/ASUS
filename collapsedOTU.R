@@ -1,5 +1,6 @@
 asuotu<-read.table("C:/Users/acahill/Desktop/asuoct.txt",header=TRUE)
-rich<-read.table("C:/Users/acahill/Desktop/otu_rich_oct.txt",header=TRUE)
+#rich<-read.table("C:/Users/acahill/Desktop/otu_rich_oct.txt",header=TRUE)
+
 
 
 samples<-c(1:33)
@@ -23,9 +24,23 @@ sites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
 
 #load vegan
 library(vegan)
+library(pracma)
+
+#fourth-root transform the data
+vec<-1:33
+asus4 = NULL
+
+for (i in vec) {
+  
+  b<-nthroot(otu2[,i],4)
+  asus4<-cbind(asus4,b)
+}
+
 
 #compute NMDS
-asusotunmds<-metaMDS(otu2)
+#asusotunmds<-metaMDS(otu2)
+asusotunmds<-metaMDS(asus4)
+
 
 #plot NMDS in base R
 #ordiplot(asusotunmds,type="n")
@@ -34,12 +49,13 @@ asusotunmds<-metaMDS(otu2)
 #orditorp(asusotunmds,display="sites",col="red",air=0.01)
 
 #analysis of similarity for sites and regions
-anosim(otu2,sites$site)
-anosim(otu2,sites$Sea)
+#anosim(otu2,sites$site)
+#anosim(otu2,sites$Sea)
 
 #nested anosim
 
-adonis(formula=otu2~sites$Sea+sites$site)
+adonis(formula=asus4~sites$Sea+sites$site)
+#adonis2(formula=asus3~sites$Sea+sites$site,add=TRUE,by="terms")
 
 #ordiplot(asusotunmds,type="n") #initiate plot
 #ordihull(asusotunmds,groups=sites$Sea,draw="polygon",col="grey90",label=F) #make polygons
@@ -74,7 +90,7 @@ grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
