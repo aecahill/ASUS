@@ -11,7 +11,7 @@ ggplot(massreg, aes(x=Sea, y=Mass,color=Sea))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Mass (g)\n")+
+  xlab("\nLocation")+ylab("Biomass (g)\n")+
   ylim(0,190)+
   scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
@@ -35,7 +35,7 @@ ggplot(asutotals, aes(x=Sea, y=total_N,color=Sea))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Total individuals\n")+
+  xlab("\nLocation")+ylab("Total individuals\n")+
   ylim(0,10500)+
   scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+

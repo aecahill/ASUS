@@ -70,10 +70,12 @@ hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.e, grp.f, grp.g) #turn the hu
 hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Black","Black","Black","Channel","Channel","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
+colnames(datascores)<-c("NMDS1","NMDS2","site","Location")
+
 #plot in ggplot
 
 ggplot() +
-geom_point(data=datascores,aes(x=NMDS1,y=NMDS2,colour=Sea),size=5) + # add the point markers
+geom_point(data=datascores,aes(x=NMDS1,y=NMDS2,colour=Location),size=5) + # add the point markers
 scale_colour_manual(values=c("green","darkorange2","gold","black","blue","purple","red")) +
 coord_equal() +
 theme_bw()+
@@ -109,7 +111,7 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Simpsons\n")+
+  xlab("\nLocation")+ylab("Simpsons\n")+
   scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
@@ -140,7 +142,7 @@ ggplot(rich, aes(x=Sea, y=margalef,color=Sea))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Margalef\n")+
+  xlab("\nLocation")+ylab("Margalef\n")+
   scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+

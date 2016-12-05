@@ -48,6 +48,8 @@ species.scores <- as.data.frame(scores(asus4nmds, "species"))
 species.scores$species <- rownames(species.scores)
 head(species.scores)
 
+
+
 library(ggplot2)
 
 #make hulls, one for each sea
@@ -109,7 +111,7 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Simpsons\n")+
+  xlab("\nLocation")+ylab("Simpsons\n")+
   scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
@@ -139,7 +141,7 @@ ggplot(rich, aes(x=region, y=margalef,color=region))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Margalef\n")+
+  xlab("\nLocation")+ylab("Margalef\n")+
   scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+

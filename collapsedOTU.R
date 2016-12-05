@@ -90,7 +90,7 @@ grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
@@ -131,7 +131,7 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Simpsons\n")+
+  xlab("\nLocation")+ylab("Simpsons\n")+
   scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+
@@ -165,7 +165,7 @@ ggplot(collrich, aes(x=region, y=margalef,color=region))+
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nSea")+ylab("Margalef\n")+
+  xlab("\nLocation")+ylab("Margalef\n")+
   scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
   scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   theme(axis.text.x= element_text(size=16))+

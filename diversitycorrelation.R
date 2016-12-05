@@ -14,12 +14,13 @@ cor.test(morphodiv$SIMPSONS,otudiv)
 
 #put the metrics in a single dataframe so I can use ggplot
 div<-cbind(morphodiv,otudiv)
+colnames(div)<-c("SIMPSONS","Location","asu","otudiv")
 
 library(ggplot2)
 
 ggplot(div,aes(SIMPSONS,otudiv))+
   geom_abline(slope=1,intercept=0)+
-  geom_point(aes(color=Sea), size = 4)+
+  geom_point(aes(color=Location), size = 4)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
