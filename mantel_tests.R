@@ -1,12 +1,23 @@
-asus3<-read.table("C:/Users/Abigail/Desktop/asus3.txt",header=TRUE)
-morphosites<-read.table("C:/Users/Abigail/Desktop/asus3sites.txt",header=TRUE)
-biomol<-read.table("C:/Users/Abigail/Desktop/asu_biomol.txt",header=TRUE)
-biomolsites<-read.table("C:/Users/Abigail/Desktop/asu_biomol_sites.txt",header=TRUE)
+asus3<-read.table("C:/Users/acahill/Desktop/asus3.txt",header=TRUE)
+morphosites<-read.table("C:/Users/acahill/Desktop/asus3sites.txt",header=TRUE)
+biomol<-read.table("C:/Users/acahill/Desktop/asu_biomol.txt",header=TRUE)
+biomolsites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
 
 library(vegan)
+library(pracma)
+
+#fourthroot morpho data
+vec<-1:26
+asus4 = NULL
+
+for (i in vec) {
+  
+  b<-nthroot(asus3[,i],4)
+  asus4<-cbind(asus4,b)
+}
 
 #make collapsed list of taxa across regions
-morpho<-cbind(asus3,morphosites)
+morpho<-cbind(asus4,morphosites)
 
 seas<-c(1:26)
 region = NULL
@@ -24,9 +35,21 @@ region<-rbind(region[1:4,],region[6:7,])
 
 
 #repeat for molecular data
-biomol<-cbind(biomol,biomolsites)
 
-biomolseas<-c(1:1608)
+#4th root transform
+
+vec<-1:1606
+biomol4 = NULL
+
+for (i in vec) {
+  
+  b<-nthroot(biomol[,i],4)
+  biomol4<-cbind(biomol4,b)
+}
+
+biomol<-cbind(biomol4,biomolsites)
+
+biomolseas<-c(1:1606)
 biomolregion = NULL
 
 for (i in biomolseas) {
@@ -35,18 +58,15 @@ for (i in biomolseas) {
   
 }
 
-colnames(biomolregion)<-colnames(biomol[1:1608])
+colnames(biomolregion)<-colnames(biomol[1:1606])
 
 #Make distance matrices
 braymorpho<-vegdist(region,method="bray")
 braybiomol<-vegdist(biomolregion,method="bray")
 
-#mantel test
-mantel(braymorpho,braybiomol)
-
 
 #collapsing the otus and redoing with collapsed
-asuotu<-read.table("C:/Users/Abigail/Desktop/asuoct.txt",header=TRUE)
+asuotu<-read.table("C:/Users/acahill/Desktop/asuoct.txt",header=TRUE)
 
 samples<-c(1:33)
 otu = NULL
@@ -61,7 +81,16 @@ otu
 colnames(otu)<-colnames(asuotu[1:33])
 otu2<-t(otu)
 
-coll<-cbind(otu2,biomolsites)
+vec<-1:33
+coll4 = NULL
+
+for (i in vec) {
+  
+  b<-nthroot(otu2[,i],4)
+  coll4<-cbind(coll4,b)
+}
+
+coll<-cbind(coll4,biomolsites)
 
 collseas<-c(1:33)
 collregion = NULL
@@ -76,5 +105,7 @@ colnames(collregion)<-colnames(coll[1:33])
 
 braycoll<-vegdist(collregion,method="bray")
 
-mantel(braymorpho,braycoll)
-mantel(braybiomol,braycoll)
+#mantel tests
+mantel(braymorpho,braybiomol,method="spearman")
+mantel(braymorpho,braycoll,method="spearman")
+mantel(braybiomol,braycoll,method="spearman")
