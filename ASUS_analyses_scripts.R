@@ -4,7 +4,7 @@
 
 asus3<-read.table("C:/Users/acahill/Desktop/asus3.txt",header=TRUE)
 sites<-read.table("C:/Users/acahill/Desktop/asus3sites.txt",header=TRUE)
-rich<-read.table("C:/Users/acahill/Desktop/asurich.txt",header=TRUE)
+rich<-read.table("C:/Users/acahill/Desktop/asurich2.txt",header=TRUE)
 
 #load vegan
 library(vegan)
@@ -95,38 +95,38 @@ theme_bw()+
 
 asusdiv<-cbind(diversity(asus3,index="simpson"),rich) #calculate simpsons index, bind to site information
 
-colnames(asusdiv)<-c("simpsons","Sea","number_species","margalef") #rename columns
+colnames(asusdiv)<-c("simpsons","Location","number_species","margalef","site") #rename columns
 
 
 summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
 TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
 
-#Plot of diversity stats
+#Plot of diversity stats, for each site
 
-ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+ 
+ggplot(asusdiv, aes(x=site, y=simpsons,color=Location))+ 
   geom_boxplot() +
-  geom_jitter(position=position_jitter(0.2), cex=6)+
+  geom_point(cex=4)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nLocation")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
-  scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
-  theme(axis.text.x= element_text(size=16))+
+  xlab("\nSite")+ylab("Simpsons\n")+
+  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_x_discrete(labels=c("Karkle","Palanga","Gugh","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
+  theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
-  theme(legend.position="none")+
+  #theme(legend.position="none")+
   ylim(0,1)+
-  annotate("text", x = 1, y = 0.63, label = "ab", size = 6)+
-  annotate("text", x = 2, y = 0.81, label = "ab", size = 6)+
-  annotate("text", x = 3, y = 0.89, label = "ab", size = 6)+
-  annotate("text", x = 4, y = 0.92, label = "b", size = 6)+
-  annotate("text", x = 5, y = 0.72, label = "ab", size = 6)+
-  annotate("text", x = 6, y = 0.43, label = "a", size = 6)+
-  annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
+  #annotate("text", x = 1, y = 0.63, label = "ab", size = 6)+
+  #annotate("text", x = 2, y = 0.81, label = "ab", size = 6)+
+  #annotate("text", x = 3, y = 0.89, label = "ab", size = 6)+
+  #annotate("text", x = 4, y = 0.92, label = "b", size = 6)+
+  #annotate("text", x = 5, y = 0.72, label = "ab", size = 6)+
+  #annotate("text", x = 6, y = 0.43, label = "a", size = 6)+
+  #annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 #margalef, based on margalef file
@@ -134,29 +134,29 @@ ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+
 summary(aov(rich$margalef~rich$Sea))
 TukeyHSD(aov(rich$margalef~rich$Sea))
 
-ggplot(rich, aes(x=Sea, y=margalef,color=Sea))+ 
+ggplot(asusdiv, aes(x=site, y=margalef,color=Location))+ 
   geom_boxplot() +
-  geom_jitter(position=position_jitter(0.2), cex=6)+
+  geom_point(cex=4)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nLocation")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"))+
-  scale_x_discrete(labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
-  theme(axis.text.x= element_text(size=16))+
+  xlab("\nSite")+ylab("Margalef\n")+
+  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_x_discrete(labels=c("Karkle","Palanga","Gugh","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
+  theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
-  theme(legend.position="none")+
+  #theme(legend.position="none")+
   ylim(0,2.25)+
-  annotate("text", x = 1, y = 1, label = "a", size = 6)+
-  annotate("text", x = 2, y = 2.24, label = "d", size = 6)+
-  annotate("text", x = 3, y = 1.9, label = "bc", size = 6)+
-  annotate("text", x = 4, y = 2.2, label = "d", size = 6)+
-  annotate("text", x = 5, y = 1.85, label = "cd", size = 6)+
-  annotate("text", x = 6, y = 1.2, label = "ab", size = 6)+
-  annotate("text", x = 7, y = 2.1, label = "cd", size = 6)+
+  #annotate("text", x = 1, y = 0.63, label = "ab", size = 6)+
+  #annotate("text", x = 2, y = 0.81, label = "ab", size = 6)+
+  #annotate("text", x = 3, y = 0.89, label = "ab", size = 6)+
+  #annotate("text", x = 4, y = 0.92, label = "b", size = 6)+
+  #annotate("text", x = 5, y = 0.72, label = "ab", size = 6)+
+  #annotate("text", x = 6, y = 0.43, label = "a", size = 6)+
+  #annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 

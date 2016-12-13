@@ -113,9 +113,10 @@ ggplot() +
 
 #diversity statistics
 
-asusdiv<-cbind(diversity(otu2,index="simpson"),rich) #calculate simpsons index, bind to site information
+collrich<-read.table("C:/Users/acahill/Desktop/otucollapsedoct2.txt",header=TRUE)
+asuscolldiv<-cbind(diversity(otu2,index="simpson"),collrich) #calculate simpsons index, bind to site information
 
-colnames(asusdiv)<-c("simpsons","margalef","Sea") #rename columns
+colnames(asuscolldiv)<-c("simpsons","margalef","asu","Location","site") #rename columns
 
 
 summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
@@ -123,61 +124,62 @@ TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
 
 #Plot of diversity stats
 
-ggplot(asusdiv, aes(x=Sea, y=simpsons,color=Sea))+ 
-  geom_boxplot()+
-  geom_jitter(position=position_jitter(0.2), cex=6)+
+ggplot(asuscolldiv, aes(x=site, y=simpsons,color=Location))+ 
+  geom_boxplot() +
+  geom_point(cex=4)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nLocation")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
-  scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
-  theme(axis.text.x= element_text(size=16))+
+  xlab("\nSite")+ylab("Simpsons\n")+
+  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_x_discrete(labels=c("Karkle","Palanga","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
+  theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
-  theme(legend.position="none")+
+  #theme(legend.position="none")+
   ylim(0,1)+
-  annotate("text", x = 1, y = 0.89, label = "b", size = 6)+
-  annotate("text", x = 2, y = 0.89, label = "b", size = 6)+
-  annotate("text", x = 3, y = 0.92, label = "b", size = 6)+
-  annotate("text", x = 4, y = 0.74, label = "b", size = 6)+
-  annotate("text", x = 5, y = 0.23, label = "a", size = 6)+
-  annotate("text", x = 6, y = 0.75, label = "b", size = 6)+
+  #annotate("text", x = 1, y = 0.63, label = "ab", size = 6)+
+  #annotate("text", x = 2, y = 0.81, label = "ab", size = 6)+
+  #annotate("text", x = 3, y = 0.89, label = "ab", size = 6)+
+  #annotate("text", x = 4, y = 0.92, label = "b", size = 6)+
+  #annotate("text", x = 5, y = 0.72, label = "ab", size = 6)+
+  #annotate("text", x = 6, y = 0.43, label = "a", size = 6)+
+  #annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 #add margalef
 
-collrich<-read.table("C:/Users/acahill/Desktop/otucollapsedoct.txt",header=TRUE)
+
 
 summary(aov(collrich$margalef~collrich$region)) #anova among regions
 TukeyHSD(aov(collrich$margalef~collrich$region)) #post-hoc tests among regions
 
 #Plot of richness stats
 
-ggplot(collrich, aes(x=region, y=margalef,color=region))+ 
-  geom_boxplot()+
-  geom_jitter(position=position_jitter(0.2), cex=6)+
+ggplot(asuscolldiv, aes(x=site, y=margalef,color=Location))+ 
+  geom_boxplot() +
+  geom_point(cex=4)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
-  xlab("\nLocation")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"))+
-  scale_x_discrete(labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
-  theme(axis.text.x= element_text(size=16))+
+  xlab("\nSite")+ylab("Margalef\n")+
+  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_x_discrete(labels=c("Karkle","Palanga","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
+  theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+
   theme(axis.title.x=element_text(size=16))+
   theme(axis.title.y=element_text(size=16))+
-  theme(legend.position="none")+
-  ylim(0,2.1)+
-  annotate("text", x = 1, y = 2.1, label = "a", size = 6)+
-  annotate("text", x = 2, y = 2.1, label = "ab", size = 6)+
-  annotate("text", x = 3, y = 2.1, label = "b", size = 6)+
-  annotate("text", x = 4, y = 2.1, label = "a", size = 6)+
-  annotate("text", x = 5, y = 2.1, label = "ab", size = 6)+
-  annotate("text", x = 6, y = 2.1, label = "ab", size = 6)+
+  ylim(0,2.25)+
+  #annotate("text", x = 1, y = 0.63, label = "ab", size = 6)+
+  #annotate("text", x = 2, y = 0.81, label = "ab", size = 6)+
+  #annotate("text", x = 3, y = 0.89, label = "ab", size = 6)+
+  #annotate("text", x = 4, y = 0.92, label = "b", size = 6)+
+  #annotate("text", x = 5, y = 0.72, label = "ab", size = 6)+
+  #annotate("text", x = 6, y = 0.43, label = "a", size = 6)+
+  #annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
