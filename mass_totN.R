@@ -1,11 +1,11 @@
-massreg<-read.table("C:/Users/acahill/Desktop/massreg.txt",header=TRUE)
-asutotals<-read.table("C:/Users/acahill/Desktop/asutotals.txt",header=TRUE)
+massreg<-read.table("C:/Users/Abigail/Desktop/massreg.txt",header=TRUE)
+asutotals<-read.table("C:/Users/Abigail/Desktop/asutotals.txt",header=TRUE)
 
 #plotting total biomass by sea
 
 ggplot(massreg, aes(x=Sea, y=Mass,color=Sea))+ 
   geom_boxplot()+
-  geom_jitter(position=position_jitter(0.2), cex=6)+
+  geom_point(cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
@@ -29,7 +29,7 @@ ggplot(massreg, aes(x=Sea, y=Mass,color=Sea))+
 
 ggplot(asutotals, aes(x=Sea, y=total_N,color=Sea))+ 
   geom_boxplot()+
-  geom_jitter(position=position_jitter(0.2), cex=6)+
+  geom_point(cex=6)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),

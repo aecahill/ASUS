@@ -2,9 +2,9 @@
 #need file sites with a column of site names and region names
 #This is for biomol data, raw OTUs
 
-asus3<-read.table("C:/Users/acahill/Desktop/asus_oct.txt",header=TRUE)
-sites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
-rich<-read.table("C:/Users/acahill/Desktop/otu_rich_oct2.txt",header=TRUE)
+asus3<-read.table("C:/Users/Abigail/Desktop/asus_oct.txt",header=TRUE)
+sites<-read.table("C:/Users/Abigail/Desktop/asu_biomol_sites.txt",header=TRUE)
+rich<-read.table("C:/Users/Abigail/Desktop/otu_rich_oct2.txt",header=TRUE)
 
 #load vegan
 library(vegan)

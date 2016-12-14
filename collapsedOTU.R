@@ -1,5 +1,6 @@
-asuotu<-read.table("C:/Users/acahill/Desktop/asuoct.txt",header=TRUE)
+#asuotu<-read.table("C:/Users/acahill/Desktop/asuoct.txt",header=TRUE)
 #rich<-read.table("C:/Users/acahill/Desktop/otu_rich_oct.txt",header=TRUE)
+asuotu<-read.table("C:/Users/Abigail/Desktop/asu_no_unclass.txt",header=TRUE)
 
 
 
@@ -15,7 +16,7 @@ for (i in samples) {
 otu
 colnames(otu)<-colnames(asuotu[1:33])
 otu2<-t(otu)
-sites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
+sites<-read.table("C:/Users/Abigail/Desktop/asu_biomol_sites.txt",header=TRUE)
 
 
 #need file asus3 which is the matrix of species
@@ -90,7 +91,7 @@ grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Biscay","Black","Black","Black","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 #plot in ggplot
@@ -113,7 +114,7 @@ ggplot() +
 
 #diversity statistics
 
-collrich<-read.table("C:/Users/acahill/Desktop/otucollapsedoct2.txt",header=TRUE)
+collrich<-read.table("C:/Users/Abigail/Desktop/otucollapsedoct2.txt",header=TRUE)
 asuscolldiv<-cbind(diversity(otu2,index="simpson"),collrich) #calculate simpsons index, bind to site information
 
 colnames(asuscolldiv)<-c("simpsons","margalef","asu","Location","site") #rename columns
