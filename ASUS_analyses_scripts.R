@@ -2,9 +2,9 @@
 #need file sites with a column of site names and region names
 #need separate calculations of margalef species richness
 
-asus3<-read.table("C:/Users/acahill/Desktop/asus3.txt",header=TRUE)
-sites<-read.table("C:/Users/acahill/Desktop/asus3sites.txt",header=TRUE)
-rich<-read.table("C:/Users/acahill/Desktop/asurich2.txt",header=TRUE)
+asus3<-read.table("C:/Users/Abigail/Desktop/asus3.txt",header=TRUE)
+sites<-read.table("C:/Users/Abigail/Desktop/asus3sites.txt",header=TRUE)
+rich<-read.table("C:/Users/Abigail/Desktop/asurich2.txt",header=TRUE)
 
 #load vegan
 library(vegan)
@@ -67,7 +67,7 @@ grp.g <- data.scores[datascores$Sea == "Red", ][chull(datascores[datascores$Sea 
                                                                    "Red", c("NMDS1", "NMDS2")]), ]
 
 hull.data <- rbind(grp.a, grp.b, grp.c, grp.d, grp.e, grp.f, grp.g) #turn the hulls into a single dataframe
-hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Black","Black","Black","Channel","Channel","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
+hull.sea<-c("Adriatic","Adriatic","Adriatic","Adriatic","Baltic","Baltic","Baltic","Biscay","Biscay","Biscay","Black","Black","Black","Channel","Channel","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Gulf_of_Lions","Red","Red","Red","Red") #add column for groups (these are based on this data only)
 hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 
 colnames(datascores)<-c("NMDS1","NMDS2","site","Location")
@@ -75,11 +75,14 @@ colnames(datascores)<-c("NMDS1","NMDS2","site","Location")
 #plot in ggplot
 
 ggplot() +
-geom_point(data=datascores,aes(x=NMDS1,y=NMDS2,colour=Location),size=5) + # add the point markers
-scale_colour_manual(values=c("green","darkorange2","gold","black","blue","purple","red")) +
-coord_equal() +
+geom_point(data=datascores,aes(x=NMDS1,y=NMDS2,shape=Location),size=3) + # add the point markers
+scale_shape_manual(values=c(1,2,3,4,5,6,7)) +
+ coord_equal() +
 theme_bw()+
-  theme(axis.text.x = element_blank(),  # remove x-axis text
+  theme(panel.border = element_blank(),
+        axis.line.x = element_line(color="black"),
+        axis.line.y = element_line(color="black"),
+        axis.text.x = element_blank(),  # remove x-axis text
         axis.text.y = element_blank(), # remove y-axis text
         axis.ticks = element_blank(),  # remove axis ticks
         axis.title.x = element_text(size=16), # remove x-axis labels
@@ -98,21 +101,25 @@ asusdiv<-cbind(diversity(asus3,index="simpson"),rich) #calculate simpsons index,
 colnames(asusdiv)<-c("simpsons","Location","number_species","margalef","site") #rename columns
 
 
-summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
-TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
+summary(aov(asusdiv$simpsons~asusdiv$Location)) #anova among regions
+TukeyHSD(aov(asusdiv$simpsons~asusdiv$Location)) #post-hoc tests among regions
 
 #Plot of diversity stats, for each site
 
-ggplot(asusdiv, aes(x=site, y=simpsons,color=Location))+ 
+ggplot(asusdiv, aes(x=site, y=simpsons,shape=Location))+ 
   geom_boxplot() +
-  geom_point(cex=4)+
+  geom_point(cex=3)+
   theme_bw()+
-  theme(panel.background = element_blank(), 
+  theme(panel.border = element_blank(),
+        axis.line.x = element_line(color="black"),
+        axis.line.y = element_line(color="black"),
+        panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSite")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_shape_manual(values=c(2,5,3,6,1,4,7),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  #scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   scale_x_discrete(labels=c("Karkle","Palanga","Gugh","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
   theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+
@@ -134,16 +141,20 @@ ggplot(asusdiv, aes(x=site, y=simpsons,color=Location))+
 summary(aov(rich$margalef~rich$Sea))
 TukeyHSD(aov(rich$margalef~rich$Sea))
 
-ggplot(asusdiv, aes(x=site, y=margalef,color=Location))+ 
+ggplot(asusdiv, aes(x=site, y=margalef,shape=Location))+ 
   geom_boxplot() +
-  geom_point(cex=4)+
+  geom_point(cex=3)+
   theme_bw()+
-  theme(panel.background = element_blank(), 
+  theme(panel.border = element_blank(),
+        axis.line.x = element_line(color="black"),
+        axis.line.y = element_line(color="black"),
+        panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSite")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_shape_manual(values=c(2,5,3,6,1,4,7),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  #scale_colour_manual(values=c("darkorange2","blue","gold","purple","green","black","red"),labels=c("Baltic","Channel","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   scale_x_discrete(labels=c("Karkle","Palanga","Gugh","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
   theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+

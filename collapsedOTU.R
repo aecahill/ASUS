@@ -97,11 +97,14 @@ hull.data<-cbind(hull.data,hull.sea) #attach group names to hull dataframe
 #plot in ggplot
 
 ggplot() +
-  geom_point(data=datascores,aes(x=NMDS1,y=NMDS2,colour=Sea),size=5) + # add the point markers
-  scale_colour_manual(values=c("green","darkorange2","gold","black","purple","red")) +
+  geom_point(data=datascores,aes(x=NMDS1,y=NMDS2,shape=Sea),size=3) + # add the point markers
+  scale_shape_manual(values=c(1,2,3,4,6,7)) +
   coord_equal() +
   theme_bw()+
-  theme(axis.text.x = element_blank(),  # remove x-axis text
+  theme(panel.border = element_blank(),
+        axis.line.x = element_line(color="black"),
+        axis.line.y = element_line(color="black"),
+        axis.text.x = element_blank(),  # remove x-axis text
         axis.text.y = element_blank(), # remove y-axis text
         axis.ticks = element_blank(),  # remove axis ticks
         axis.title.x = element_text(size=16), # remove x-axis labels
@@ -120,21 +123,25 @@ asuscolldiv<-cbind(diversity(otu2,index="simpson"),collrich) #calculate simpsons
 colnames(asuscolldiv)<-c("simpsons","margalef","asu","Location","site") #rename columns
 
 
-summary(aov(asusdiv$simpsons~asusdiv$Sea)) #anova among regions
-TukeyHSD(aov(asusdiv$simpsons~asusdiv$Sea)) #post-hoc tests among regions
+summary(aov(asusdiv$simpsons~asusdiv$Location)) #anova among regions
+TukeyHSD(aov(asusdiv$simpsons~asusdiv$Location)) #post-hoc tests among regions
 
 #Plot of diversity stats
 
-ggplot(asuscolldiv, aes(x=site, y=simpsons,color=Location))+ 
+ggplot(asuscolldiv, aes(x=site, y=simpsons,shape=Location))+ 
   geom_boxplot() +
-  geom_point(cex=4)+
+  geom_point(cex=3)+
   theme_bw()+
-  theme(panel.background = element_blank(), 
+  theme(panel.border = element_blank(),
+        axis.line.x = element_line(color="black"),
+        axis.line.y = element_line(color="black"),
+        panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSite")+ylab("Simpsons\n")+
-  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_shape_manual(values=c(2,3,6,1,4,7),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  #scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   scale_x_discrete(labels=c("Karkle","Palanga","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
   theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+
@@ -160,16 +167,20 @@ TukeyHSD(aov(collrich$margalef~collrich$region)) #post-hoc tests among regions
 
 #Plot of richness stats
 
-ggplot(asuscolldiv, aes(x=site, y=margalef,color=Location))+ 
+ggplot(asuscolldiv, aes(x=site, y=margalef,shape=Location))+ 
   geom_boxplot() +
-  geom_point(cex=4)+
+  geom_point(cex=3)+
   theme_bw()+
-  theme(panel.background = element_blank(), 
+  theme(panel.border = element_blank(),
+        axis.line.x = element_line(color="black"),
+        axis.line.y = element_line(color="black"),
+        panel.background = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         plot.background = element_blank())+
   xlab("\nSite")+ylab("Margalef\n")+
-  scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  scale_shape_manual(values=c(2,3,6,1,4,7),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
+  #scale_colour_manual(values=c("darkorange2","gold","purple","green","black","red"),labels=c("Baltic","Biscay","Gulf of Lions","Adriatic","Black","Red"))+
   scale_x_discrete(labels=c("Karkle","Palanga","Lekeitio","Pasaia","Zumaia","Cassidaigne","Elvine","Rioux","Due Sorelle","Grotta Azzurra","Scalaccia","Aladja","Cherninos","Kamchia","Janib Sa'ara","Qaham"))+
   theme(axis.text.x= element_text(size=12))+
   theme(axis.text.y= element_text(size=16))+

@@ -1,7 +1,7 @@
-asus3<-read.table("C:/Users/acahill/Desktop/asus3.txt",header=TRUE)
-morphosites<-read.table("C:/Users/acahill/Desktop/asus3sites.txt",header=TRUE)
-biomol<-read.table("C:/Users/acahill/Desktop/asu_biomol.txt",header=TRUE)
-biomolsites<-read.table("C:/Users/acahill/Desktop/asu_biomol_sites.txt",header=TRUE)
+asus3<-read.table("C:/Users/Abigail/Desktop/asus3.txt",header=TRUE)
+morphosites<-read.table("C:/Users/Abigail/Desktop/asus3sites.txt",header=TRUE)
+biomol<-read.table("C:/Users/Abigail/Desktop/asu_biomol.txt",header=TRUE)
+biomolsites<-read.table("C:/Users/Abigail/Desktop/asu_biomol_sites.txt",header=TRUE)
 
 library(vegan)
 library(pracma)
