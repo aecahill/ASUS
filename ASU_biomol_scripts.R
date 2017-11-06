@@ -170,4 +170,21 @@ ggplot(asusdiv, aes(x=site, y=margalef,shape=Location))+
   #annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+#bray curtis calculations by region
 
+asus7<-read.table("C:/Users/Abigail/Desktop/asus_biomol_region.txt",header=T)
+
+
+#fourth-root transform the data
+vec<-1:1606
+asus8 = NULL
+
+for (i in vec) {
+  
+  b<-nthroot(asus7[,i],4)
+  asus8<-cbind(asus8,b)
+}
+
+#bray-curtis
+
+vegdist(asus8)

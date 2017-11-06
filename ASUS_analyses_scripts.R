@@ -171,3 +171,21 @@ ggplot(asusdiv, aes(x=site, y=margalef,shape=Location))+
   #annotate("text", x = 7, y = 0.84, label = "ab", size = 6)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+#bray-curtis across regions
+
+asus5<-read.table("C:/Users/Abigail/Desktop/asus_morpho_region.txt",header=TRUE)
+
+#fourth-root transform the data
+vec<-1:26
+asus6 = NULL
+
+for (i in vec) {
+  
+  b<-nthroot(asus5[,i],4)
+  asus6<-cbind(asus6,b)
+}
+
+#bray-curtis matrix
+
+vegdist(asus6)

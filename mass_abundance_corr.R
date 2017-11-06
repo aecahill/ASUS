@@ -1,7 +1,7 @@
 ##Script to make an x-y plot correlating mass and read number
 
 #read in data
-readmass<-read.table("C:/Users/acahill/Desktop/readmass.txt",header=TRUE)
+readmass<-read.table("C:/Users/Abigail/Desktop/readmass.txt",header=TRUE)
 colnames(readmass)<-c("Location","asu","read","taxon","weight")
 
 
@@ -11,7 +11,7 @@ cor.test(readmass$read,readmass$weight)
 library(ggplot2)
 
 ggplot(readmass,aes(read,weight))+
-  geom_point(aes(color=Location), size = 4)+
+  geom_point(aes(color=Location, shape = taxon), alpha = 0.65, size = 4)+
   theme_bw()+
   theme(panel.background = element_blank(), 
         panel.grid.major = element_blank(),
